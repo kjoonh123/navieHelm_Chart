@@ -16,17 +16,13 @@ svc:
 ##########################################################################
 #deployment 
 deployName: navie-deploy
-
 deployReplicaCount: 1
-
 image:
   repository: 191635887465.dkr.ecr.ap-northeast-2.amazonaws.com/navie
   pullPolicy: IfNotPresent #전략에 따라 Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v1 #임시로 해놓은 v1, latest가 전략에 따라 효과적
+  tag: 1b8f0 #임시로 해놓은 v1, latest가 전략에 따라 효과적
 Serviceconnection: allow-secretmanager-fors3upload
-
-
 strategy:
   type: RollingUpdate
   rollingUpdate:
@@ -51,19 +47,17 @@ ingressName: navie-ingress
 ingress:
   enabled: true
   className: alb
-  annotations: 
+  annotations:
     alb.ingress.kubernetes.io/load-balancer-name: "navie-eks-alb"
     alb.ingress.kubernetes.io/scheme: "internet-facing"
     alb.ingress.kubernetes.io/target-type: "ip"
     alb.ingress.kubernetes.io/stickiness-enabled: "true"
     alb.ingress.kubernetes.io/target-group-attributes: "stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=300"
-    external-dns.alpha.kubernetes.io/hostname: "navie.world"    
+    external-dns.alpha.kubernetes.io/hostname: "navie.world"
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:191635887465:certificate/dc2ec675-f097-4452-8c85-963929c1153c
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-
   tls: []
- 
 ##########################################################################
 serviceAccount:
   # Specifies whether a service account should be created
@@ -75,22 +69,18 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
-spec: 
+spec:
   selector:
     app: navie-app
-
 podAnnotations: {}
 podLabels: {}
-
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
