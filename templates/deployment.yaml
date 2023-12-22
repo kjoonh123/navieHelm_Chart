@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployName }}
+  labels:
+    app: {{ .Values.sellectLabels }}
+    project: {{ .Values.commonName }}
+  namespace: {{ .Values.commonName }}
+spec:
+  replicas: {{ .Values.deployReplicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.sellectLabels }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.sellectLabels }}
+    spec:
+      serviceAccountName: {{ .Values.Serviceconnection }}
+      containers:
+        - name: {{ .Values.sellectLabels }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+            - containerPort: 3306
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
