@@ -22,15 +22,21 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
             - name: NODE_IP
-          valueFrom: {fieldRef: {fieldPath: status.hostIP}}
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
             - name: NODE_NAME
-          valueFrom: {fieldRef: {fieldPath: spec.nodeName}}
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
             - name: POD_NAME
-          valueFrom: {fieldRef: {fieldPath: metadata.name}}
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: OKIND
-          value: navie-depoly
+              value: navie-depoly
             - name: license
-          value: x6049v48e1sir-z2av0ppo3f63nj-x34d04d3c3246
+              value: x6049v48e1sir-z2av0ppo3f63nj-x34d04d3c3246
           ports:
             - containerPort: {{ .Values.service.port }}
             - containerPort: 3306
