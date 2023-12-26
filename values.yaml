@@ -16,7 +16,7 @@ svc:
 ##########################################################################
 #deployment 
 deployName: navie-deploy
-deployReplicaCount: 2
+deployReplicaCount: 1
 image:
   repository: 191635887465.dkr.ecr.ap-northeast-2.amazonaws.com/navie
   pullPolicy: IfNotPresent #전략에 따라 Always
@@ -36,7 +36,7 @@ strategy:
 hpa:
   enabled: true
   name: my-hpa
-  minReplicas: 2
+  minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 80
 ##########################################################################
