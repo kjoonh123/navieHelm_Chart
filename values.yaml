@@ -21,7 +21,7 @@ image:
   repository: 191635887465.dkr.ecr.ap-northeast-2.amazonaws.com/navie
   pullPolicy: IfNotPresent #전략에 따라 Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2c0fe" #임시로 해놓은 v1, latest가 전략에 따라 효과적
+  tag: "b697f" #임시로 해놓은 v1, latest가 전략에 따라 효과적
 Serviceconnection: allow-secretmanager-fors3upload
 strategy:
   type: RollingUpdate
