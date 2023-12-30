@@ -24,4 +24,14 @@ spec:
                 name: {{ .Values.svc.name }}
                 port:
                   number: {{ .Values.service.port }}
+    - host: "www.navie.world"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/stage"
+            backend:
+              service:
+                name: stage-svc
+                port:
+                  number: 80
 {{- end }}
